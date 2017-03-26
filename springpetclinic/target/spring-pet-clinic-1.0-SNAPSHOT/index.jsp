@@ -1,1 +1,0 @@
-<% response.sendRedirect("pet/list");%>
