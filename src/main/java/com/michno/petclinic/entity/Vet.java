@@ -1,6 +1,7 @@
 package com.michno.petclinic.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 /**
@@ -16,6 +17,9 @@ public class Vet extends Person {
     @Column(name="email")
     private String email;
 
+    @Column(name="add_date")
+    private LocalDate localDate;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vet", fetch = FetchType.EAGER)
     private Set<Visit> visits;
 
@@ -23,11 +27,34 @@ public class Vet extends Person {
     public Vet() {
     }
 
+    public Vet(String experience, String email, LocalDate localDate, Set<Visit> visits) {
+        this.experience = experience;
+        this.email = email;
+        this.localDate = localDate;
+        this.visits = visits;
+    }
+
+    public Vet(String firstName, String lastName, String experience, String email, LocalDate localDate, Set<Visit> visits) {
+        super(firstName, lastName);
+        this.experience = experience;
+        this.email = email;
+        this.localDate = localDate;
+        this.visits = visits;
+    }
+
     public Vet(String firstName, String lastName, String experience, String email, Set<Visit> visits) {
         super(firstName, lastName);
         this.experience = experience;
         this.email = email;
         this.visits = visits;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 
     public String getExperience() {

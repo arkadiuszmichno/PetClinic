@@ -1,12 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: arkad
-  Date: 24.03.2017
-  Time: 22:14
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -32,16 +25,18 @@
         <table>
             <tbody>
             <tr>
-                <td>Vacancies: ${vacancies}</td>
+                <td><h2>Vacancies: </h2></td>
+                <td>${vacancies}</td>
             </tr>
             <tr>
-                <td>Send Mail to Vets:</td>
+                <td><h2>Send Mail to Vets:</h2></td>
             </tr>
             <c:forEach var="tempVet" varStatus="status" items="${mailData.theVets}">
                 <tr>
                     <td><form:hidden path="theVets[${status.index}].id"/></td>
                     <td>${tempVet.firstName} ${tempVet.lastName}
-                        <form:checkbox path="theMailVets[${status.index}].email" id="${tempVet.id}" value="${tempVet.email}"/>
+                        <form:checkbox path="theMailVets[${status.index}].email" id="${tempVet.id}"
+                                       value="${tempVet.email}"/>
                     </td>
                 </tr>
             </c:forEach>
@@ -57,6 +52,11 @@
                 <td><label></label></td>
                 <td><input type="submit" value="Send Mail" class="save"></td>
             </tr>
+            <tr>
+                <td><h2>Generate Pdf: </h2></td>
+                <td><h3><a href="/status/generatePDF" target="_blank">Download Pdf Document</a></h3></td>
+            </tr>
+
             </tbody>
         </table>
         <div style="clear: both;"></div>

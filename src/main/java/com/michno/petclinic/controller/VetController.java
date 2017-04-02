@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -43,6 +44,7 @@ public class VetController {
     @PostMapping("/saveVet")
     public String saveVet(@ModelAttribute("vet") Vet theVet){
 
+        theVet.setLocalDate(LocalDate.now());
         clinicService.saveVet(theVet);
 
         return"redirect:/vet/list";

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class VisitController {
     }
 
     @GetMapping("/showFormForAdd")
-    public String showFormForAdd(Model theModel){
+    public String showFormForAdd(Model theModel) {
 
         Visit theVisit = new Visit();
 
@@ -48,20 +49,20 @@ public class VisitController {
     }
 
     @PostMapping("/saveVisit")
-    public String saveVisit(@ModelAttribute("visit") Visit theVisit){
+    public String saveVisit(@ModelAttribute("visit") Visit theVisit) {
 
         Pet thePet = clinicService.getPetByName(theVisit.getPetName());
         Vet theVet = clinicService.getVetByLastName(theVisit.getVetName());
-
+        theVisit.setLocalDate(LocalDate.now());
         theVisit.setPet(thePet);
         theVisit.setVet(theVet);
         clinicService.saveVisit(theVisit);
 
-        return"redirect:/visit/list";
+        return "redirect:/visit/list";
     }
 
     @GetMapping("/showFormForUpdate")
-    public String showFormForUpdate(@RequestParam("visitId") int theId, Model theModel){
+    public String showFormForUpdate(@RequestParam("visitId") int theId, Model theModel) {
 
         Visit theVisit = clinicService.getVisitById(theId);
         List<Pet> thePets = clinicService.getPets();
@@ -74,7 +75,7 @@ public class VisitController {
     }
 
     @GetMapping("/deleteVisit")
-    public String deleteVisit(@RequestParam("visitId") int theId){
+    public String deleteVisit(@RequestParam("visitId") int theId) {
         clinicService.deleteVisitById(theId);
 
         return "redirect:/visit/list";

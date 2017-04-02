@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -42,6 +43,7 @@ public class OwnerController {
     @PostMapping("/saveOwner")
     public String saveOwner(@ModelAttribute("owner") Owner theOwner){
 
+        theOwner.setLocalDate(LocalDate.now());
         clinicService.saveOwner(theOwner);
 
         return"redirect:/owner/list";

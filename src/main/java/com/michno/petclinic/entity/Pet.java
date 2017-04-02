@@ -3,6 +3,7 @@ package com.michno.petclinic.entity;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,21 +11,24 @@ import java.util.Set;
  * Created by arkad on 23.03.2017.
  */
 @Entity
-@Table(name="pet")
+@Table(name = "pet")
 public class Pet extends NamedEntity {
 
-    @Column(name="age")
+    @Column(name = "age")
     private String age;
 
-    @Column(name="type")
+    @Column(name = "type")
     private String type;
 
     @ManyToOne
-    @JoinColumn(name="owner_id")
+    @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @Column(name="owner_name")
+    @Column(name = "owner_name")
     private String ownerName;
+
+    @Column(name = "add_date")
+    private LocalDate localDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
     private Set<Visit> visits;
@@ -32,19 +36,23 @@ public class Pet extends NamedEntity {
     public Pet() {
     }
 
-    public Pet(String age, String type, Owner owner, String ownerName) {
+    public Pet(String age, String type, Owner owner, String ownerName, LocalDate localDate, Set<Visit> visits) {
         this.age = age;
         this.type = type;
         this.owner = owner;
         this.ownerName = ownerName;
+        this.localDate = localDate;
+        this.visits = visits;
     }
 
-    public Pet(String name, String age, String type, Owner owner, String ownerName) {
+    public Pet(String name, String age, String type, Owner owner, String ownerName, LocalDate localDate, Set<Visit> visits) {
         super(name);
         this.age = age;
         this.type = type;
         this.owner = owner;
         this.ownerName = ownerName;
+        this.localDate = localDate;
+        this.visits = visits;
     }
 
     public String getAge() {
@@ -72,7 +80,7 @@ public class Pet extends NamedEntity {
     }
 
     public Set<Visit> getVisits() {
-        if(visits==null)
+        if (visits == null)
             visits = new HashSet<Visit>();
         return visits;
     }
@@ -87,5 +95,13 @@ public class Pet extends NamedEntity {
 
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 }

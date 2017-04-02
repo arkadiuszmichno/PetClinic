@@ -1,6 +1,9 @@
 package com.michno.petclinic.entity;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,21 +21,28 @@ public class Owner extends Person {
     @Column(name="email")
     private String email;
 
+    @Column(name="add_date")
+    private LocalDate localDate;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Pet> pets;
 
     public Owner() {
     }
 
-    public Owner(String phoneNumber, String email) {
+    public Owner(String phoneNumber, String email, LocalDate localDate, Set<Pet> pets) {
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.localDate = localDate;
+        this.pets = pets;
     }
 
-    public Owner(String firstName, String lastName, String phoneNumber, String email) {
+    public Owner(String firstName, String lastName, String phoneNumber, String email, LocalDate localDate, Set<Pet> pets) {
         super(firstName, lastName);
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.localDate = localDate;
+        this.pets = pets;
     }
 
     public String getPhoneNumber() {
@@ -59,6 +69,14 @@ public class Owner extends Person {
 
     public void setPets(Set<Pet> pets) {
         this.pets = pets;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate now) {
+        this.localDate = localDate;
     }
 
     @Override

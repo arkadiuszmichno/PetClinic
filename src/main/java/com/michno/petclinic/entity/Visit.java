@@ -9,39 +9,44 @@ import java.time.LocalDate;
  * Created by arkad on 23.03.2017.
  */
 @Entity
-@Table(name="visit")
+@Table(name = "visit")
 public class Visit extends BaseEntity {
 
-    @Column(name="date")
+    @Column(name = "date")
     private String date;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
     @ManyToOne
-    @JoinColumn(name="pet_id")
+    @JoinColumn(name = "pet_id")
     private Pet pet;
 
     @ManyToOne
-    @JoinColumn(name="vet_id")
+    @JoinColumn(name = "vet_id")
     private Vet vet;
 
-    @Column(name="pet_name")
+    @Column(name = "pet_name")
     private String petName;
 
-    @Column(name="vet_name")
+    @Column(name = "vet_name")
     private String vetName;
+
+    @Column(name = "add_date")
+    private LocalDate localDate;
+
 
     public Visit() {
     }
 
-    public Visit(String date, String description, Pet pet, Vet vet, String petName, String vetName) {
+    public Visit(String date, String description, Pet pet, Vet vet, String petName, String vetName, LocalDate localDate) {
         this.date = date;
         this.description = description;
         this.pet = pet;
         this.vet = vet;
         this.petName = petName;
         this.vetName = vetName;
+        this.localDate = localDate;
     }
 
     public String getDate() {
@@ -90,5 +95,13 @@ public class Visit extends BaseEntity {
 
     public void setVetName(String vetName) {
         this.vetName = vetName;
+    }
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 }

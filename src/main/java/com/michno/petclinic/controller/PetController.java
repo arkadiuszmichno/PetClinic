@@ -6,10 +6,12 @@ import com.michno.petclinic.entity.Vet;
 import com.michno.petclinic.services.ClinicService;
 import com.michno.petclinic.services.MailManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -56,8 +58,8 @@ public class PetController {
         }
         Owner theOwner = clinicService.getOwnerByLastName(thePet.getOwnerName());
         List<Vet> theVets = clinicService.getVets();
-
         thePet.setOwner(theOwner);
+        thePet.setLocalDate(LocalDate.now());
         clinicService.savePet(thePet);
         if (vacancies <= 20)
             mailManager.sendWarningMail(vacancies, theVets);

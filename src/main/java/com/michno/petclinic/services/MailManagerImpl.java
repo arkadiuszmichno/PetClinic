@@ -29,13 +29,24 @@ public class MailManagerImpl implements MailManager {
     public void sendWarningMail(Long vacancies, List<Vet> vets) {
         SimpleMailMessage message = new SimpleMailMessage();
 
-        if (vets == null)
+        int size = 0;
+        for (Vet tempVet : vets)
+            if (tempVet.getEmail() != null)
+                size += 1;
+
+        if (size == 0)
             return;
 
-        String[] address = new String[vets.size()];
+        String[] address = new String[size];
 
-        for (int i = 0; i < vets.size(); i++)
-            address[i] = vets.get(i).getEmail();
+        int j = 0;
+
+        for (int i = 0; i < vets.size(); i++) {
+            if (vets.get(i).getEmail() != null) {
+                address[j] = vets.get(i).getEmail();
+                j++;
+            }
+        }
 
 
         message.setFrom("petclinic.owner@gmail.com");
